@@ -1,8 +1,11 @@
-# React + Vite
+# PonderJaunt DEX
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+PonderJaunt DEX is a decentralized exchange (DEX) GUI system with a retro DOS terminal aesthetic. It's built using React and Vite for the frontend, and Node.js with Express for the backend, integrating with the XRP Ledger Testnet.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How to Run the Project
+
+
+1.  Navigate to the backend directory:
+    
