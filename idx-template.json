@@ -1,0 +1,26 @@
+{
+  "name": "legendary-dex",
+  "description": "A self-healing decentralized exchange with a retro terminal UI.",
+  "build": {
+    "command": "npm run build",
+    "path": "frontend"
+  },
+  "run": {
+    "command": "node backend/index.js",
+    "port": 3000
+  },
+  "preview": {
+    "port": 3000
+  }
+}
+```
+```
+nix
+{ pkgs ? import <nixpkgs> {} }:
+
+pkgs.mkShell {
+  buildInputs = [
+    pkgs.nodejs-18_x
+    pkgs.nodePackages.npm
+  ];
+}
