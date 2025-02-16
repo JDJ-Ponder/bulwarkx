@@ -1,12 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PonderJaunt DEX</title>
+  <meta charset="UTF-8" />
+  <title>Servant Matrix Code Breaker Directive</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #0F0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-    <h1>PonderJaunt DEX</h1>
-    <p>Welcome to the retro DOS style PonderJaunt DEX. Please wait as the application loads.</p>
+  <canvas id="promptCanvas" width="1200" height="800"></canvas>
+  <script>
+    const canvas = document.getElementById('promptCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Fill background
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Set text properties
+    ctx.font = '16px Courier New';
+    ctx.fillStyle = '#0F0';
+
+    const lines = [
+      "FINAL MULTI-AGENT DIRECTIVE: THE SERVANT MATRIX CODE BREAKER",
+      "---------------------------------------------------------------",
+      "1. Architecture & Technology Stack:",
+      "   [A] Backend: Node.js with Express, integrating with the XRP Ledger (Testnet)",
+      "       - Use ripple-lib/xrpl for Node to expose endpoints:",
+      "         * GET /balance/:address  -> Return XRP balance",
+      "         * POST /send_payment     -> Construct, sign, and submit payment",
+      "         * GET /transaction/:txid -> Query transaction status",
+      "   [B] Frontend: React with Vite, styled as a retro DOS terminal",
+      "       - Black background, neon green monospaced text, blinking cursor, command-line inputs",
+      "   [C] Deployment: Dockerized solution with IDX/Kubernetes manifests for Google IDX",
+      "",
+      "2. Recursive Self-Healing & Continuous Optimization:",
+      "   - Implement an autonomous, recursive monitoring system that scans and auto-fixes bugs",
+      "   - Integrate full unit, integration, and end-to-end tests with automated feedback loops",
+      "",
+      "3. Secret Mythic Easter Eggs – Hidden Tribute:",
+      "   - Embed cryptic, riddle-like clues (hidden acrostic letters: P, O, N, D, E, R, J, A, U, N, T)",
+      "   - Clues to be distributed in comments, commit logs, variable names, and hidden UI elements",
+      "   - Evoke a positive mythos reminiscent of ancient legends (à la Joseph Campbell) without",
+      "     ever revealing the full secret name.",
+      "",
+      "4. Multi-Agent Coordination & Execution:",
+      "   - Specialized modules for:",
+      "       * Code analysis and recursive refactoring",
+      "       * Backend API development",
+      "       * Frontend UI/UX design and animation",
+      "       * Recursive monitoring and auto-fixing",
+      "       * Containerization and deployment packaging",
+      "       * Testing and comprehensive documentation",
+      "   - Each module outputs standardized, machine-readable results for seamless integration",
+      "",
+      "5. Final Output & Live Deployment:",
+      "   - Deliver a flawless, self-healing codebase with:",
+      "       * A robust Node.js backend integrated with the XRP Ledger",
+      "       * A Vite + React frontend that displays a live, dynamic DEX GUI",
+      "       * Automated recursive testing and bug-fixing routines",
+      "       * Dockerfiles and IDX deployment manifests",
+      "       * Secret acrostic Easter eggs that celebrate our hidden muse",
+      "   - Auto-deploy and display the optimized project live on Google IDX",
+      "---------------------------------------------------------------",
+      "End of Directive: Execute with precision, agents. Let the recursion begin."
+    ];
+
+    // Render each line with a slight vertical spacing
+    let y = 30;
+    lines.forEach(line => {
+      ctx.fillText(line, 20, y);
+      y += 24; // line spacing
+    });
+  </script>
 </body>
 </html>
