@@ -1,7 +1,8 @@
 const express = require('express');
-const { Client, xrpToDrops, Wallet } = require('xrpl');
+const { Client, Wallet } = require('xrpl');
 const app = express();
-const port = 3001;
+const PORT = process.env.PORT || 3001; 
+
 
 const client = new Client('wss://s.altnet.rippletest.net:51233');
 
@@ -44,12 +45,11 @@ app.get('/balance/:address', async (req, res) => {
 
 // POST /send_payment
 app.post('/send_payment', async (req, res) => {
-  const { to, amount, currency } = req.body;
-  const seed = 'sEdTM1uX6kmiVpD62q6qX3o4f7R8vQY';
+  const { to, amount, currency, seed } = req.body;
   const wallet = Wallet.fromSeed(seed);
   console.log(`Sending payment from seed: ${seed} to: ${to} amount: ${amount}`);
   try {
-    const payment = {
+    const payment = {    
       TransactionType: 'Payment',
       Account: wallet.address,
       Amount: {
@@ -72,7 +72,7 @@ app.post('/send_payment', async (req, res) => {
 // GET /transaction/:txid
 app.get('/transaction/:txid', async (req, res) => {
     const txid = req.params.txid;
-    console.log(`Fetching transaction with ID: ${txid}`);
+    console.log(`Fetching transaction with ID: ${txid}`);    
     try {
         const tx = await client.request({
             command: 'tx',
@@ -81,10 +81,13 @@ app.get('/transaction/:txid', async (req, res) => {
         res.json({ transaction: tx });
     } catch (error) {
         console.error('Error fetching transaction:', error);
-        res.status(500).json({ error: 'Error fetching transaction' });
+        if (error.data.error === 'txnNotFound') {
+            res.json({ transaction: {} });
+        } else {
+            res.status(500).json({ error: 'Error fetching transaction' });
+        }
     }
 });
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(PORT, () => {    
+  console.log(`Server is running on port ${PORT}`);
 });

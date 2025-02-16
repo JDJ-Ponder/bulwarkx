@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { checkServerStatus } from '../../../dex-project/shared/utils';
+import { checkServerStatus } from '../../shared/utils';
+import './App.css'
 
 function App() {
   const [serverStatus, setServerStatus] = useState('Checking...');
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const checkStatus = async () => {
       try {
         const status = await checkServerStatus();
-        setServerStatus(status ? 'Online' : 'Offline');
-        if (!status) {
-          setError('Backend server is offline!');
-        }
+        setServerStatus(status);
       } catch (err) {
-        setServerStatus('Offline');
-        setError('Error checking server status: ' + err.message);
+        setServerStatus(false);
       }
     };
 
     checkStatus();
-    const intervalId = setInterval(checkStatus, 10000); // Check every 10 seconds
+    const intervalId = setInterval(checkStatus, 5000); // Check every 5 seconds
 
     return () => clearInterval(intervalId);
   }, []);
+
+  const statusStyle = {
+    color: serverStatus ? 'green' : 'red',
+  };
+
+  
 
   return (
     <div className="app">
@@ -32,7 +34,7 @@ function App() {
           <span className="status">Server Status: {serverStatus}</span>
         </div>
         <div className="content">
-          {error && <div className="error">{error}</div>}
+          <span className="status" style={statusStyle}>{serverStatus ? "Online" : "Offline"}</span>
           <p>Welcome to the PonderJaunt DEX</p>
         </div>
       </div>
