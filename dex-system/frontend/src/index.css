@@ -1,0 +1,137 @@
+body {
+  margin: 0;
+  background-color: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.terminal-header {
+  color: #0f0;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.terminal-body {
+  flex-grow: 1;
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding: 10px;
+}
+
+.terminal-line {
+  margin-bottom: 5px;
+  white-space: pre-wrap; /* Wrap text */
+  line-height: 1.4em;
+}
+
+.terminal-input {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.terminal-input-prompt {
+  color: #0f0;
+  margin-right: 5px;
+}
+
+.terminal-input-field {
+  background-color: transparent;
+  border: none;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1em;
+  width: 100%;
+  outline: none;
+}
+
+.blinking-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background-color: #0f0;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Subtle text animation */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Terminal-style order book, transaction history, trade interface */
+.order-book,
+.transaction-history,
+.trade-interface {
+  border: 1px solid #0f0;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.order-book-header,
+.transaction-history-header,
+.trade-interface-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.order-book-table,
+.transaction-history-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-book-table th,
+.order-book-table td,
+.transaction-history-table th,
+.transaction-history-table td {
+  border: 1px solid #0f0;
+  padding: 5px;
+  text-align: left;
+}
+
+.trade-interface-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.trade-interface-form label {
+  margin-bottom: 5px;
+}
+
+.trade-interface-form input,
+.trade-interface-form button {
+  background-color: transparent;
+  border: 1px solid #0f0;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.trade-interface-form button {
+  cursor: pointer;
+}
