@@ -15,12 +15,6 @@ body {
   box-sizing: border-box;
 }
 
-.terminal-header {
-  color: #0f0;
-  font-size: 1.2em;
-  margin-bottom: 10px;
-}
-
 .terminal-body {
   flex-grow: 1;
   overflow-y: auto; /* Enable vertical scrolling */

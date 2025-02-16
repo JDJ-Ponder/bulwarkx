@@ -1,29 +1,23 @@
 // package.json
 {
-  "name": "ponderjaunt-dex-frontend",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "vite": "^4.4.5"
-  }
+    "name": "ponderjaunt-dex-frontend",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^4.0.3",
+        "vite": "^4.4.5"
+    }
 }
 ```
 
@@ -205,10 +199,6 @@ const TradeInterface = ({ onTrade }) => {
   );
 };
 
-const Header = () => {
-  return <div className="header">PonderJaunt DEX</div>;
-};
-
 const App = () => {
   const [terminalOutput, setTerminalOutput] = useState([]);
   const [orders, setOrders] = useState([
@@ -223,16 +213,17 @@ const App = () => {
   const handleCommand = (command) => {
     setTerminalOutput((prevOutput) => [
       ...prevOutput,
-      { type: 'command', text: `PonderJaunt> ${command}` },
+      `PonderJaunt> ${command}`,
     ]);
 
     if (command === 'help') {
-      setTerminalOutput((prevOutput) => [
-        ...prevOutput,
-        { type: 'output', text: 'Available commands: help, clear' },
-      ]);
+      setTerminalOutput((prevOutput) => [...prevOutput, 'Available commands: help, clear']);
     } else if (command === 'clear') {
-      setTerminalOutput([]);
+      setTerminalOutput((prevOutput) => {
+        return [];
+      });
+    } else if (command === "price"){
+      setTerminalOutput((prevOutput) => [...prevOutput, 'Current price: $101']);
     } else {
       setTerminalOutput((prevOutput) => [
         ...prevOutput,
@@ -250,14 +241,11 @@ const App = () => {
 
   return (
     <div className="terminal">
-      <Header />
+      <div className="header">PonderJaunt DEX</div>
       <div className="terminal-output">
-        <div className="terminal-header">
-        <AnimatedText text="PonderJaunt DEX" delay={50}/>
-        </div>
-        {terminalOutput.map((item, index) => (
-          <div key={index} className={`terminal-line ${item.type}`}>
-            {item.text}
+        {terminalOutput.map((line, index) => (
+          <div key={index} className="terminal-line">
+            {line}
           </div>
         ))}
       </div>
