@@ -1,0 +1,40 @@
+.header {
+  background-color: #000; /* Black background */
+  color: #0F0; /* Neon green text */
+  font-family: 'Courier New', Courier, monospace; /* Monospaced font */
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #0F0; /* Thicker border */
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 10px #0F0; /* Glow effect */
+  text-shadow: 0px 0px 5px #0F0; /* Text glow */
+  letter-spacing: 2px;
+}
+
+.order-book,
+.transaction-history,
+.trade-interface {
+  border: 2px solid #0F0; /* Thicker border */
+  padding: 10px;
+  background-color: #000; /* Black background */
+  color: #0F0; /* Neon green text */
+  font-family: 'Courier New', Courier, monospace; /* Monospaced font */
+  margin-bottom: 20px; /* Space between sections */
+  box-shadow: 0px 0px 10px #0F0; /* Glow effect */
+}
+
+.order-book h3,
+.transaction-history h3,
+.trade-interface h3 {
+    text-align: center;
+    text-shadow: 0px 0px 5px #0F0;
+    letter-spacing: 2px;
+}
+
+.order,
+.transaction {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+}

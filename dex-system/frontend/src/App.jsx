@@ -205,6 +205,10 @@ const TradeInterface = ({ onTrade }) => {
   );
 };
 
+const Header = () => {
+  return <div className="header">PonderJaunt DEX</div>;
+};
+
 const App = () => {
   const [terminalOutput, setTerminalOutput] = useState([]);
   const [orders, setOrders] = useState([
@@ -246,6 +250,7 @@ const App = () => {
 
   return (
     <div className="terminal">
+      <Header />
       <div className="terminal-output">
         <div className="terminal-header">
         <AnimatedText text="PonderJaunt DEX" delay={50}/>
