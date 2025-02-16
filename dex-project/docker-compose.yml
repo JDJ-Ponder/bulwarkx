@@ -1,0 +1,40 @@
+```diff
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -0,0 +1,29 @@
++version: '3.8'
++
++services:
++  backend:
++    build:
++      context: ./dex-system/backend
++      dockerfile: Dockerfile
++    ports:
++      - "3001:3001"
++    environment:
++      - PORT=3001
++    volumes:
++      - ./dex-system/backend:/app
++      - /app/node_modules
++    networks:
++      - dex-network
++    restart: always
++
++  frontend:
++    build:
++      context: ./dex-system/frontend
++      dockerfile: Dockerfile
++    ports:
++      - "5173:5173"
++    volumes:
++      - ./dex-system/frontend:/app
++      - /app/node_modules
++    networks:
++      - dex-network
++    restart: always
++
++networks:
++  dex-network:
++    driver: bridge
+
+```
