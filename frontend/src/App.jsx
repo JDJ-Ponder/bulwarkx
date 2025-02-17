@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import CommandInput from './CommandInput';
-
+import { price } from './data';
 import { initialOrders, initialTransactions, price } from './data';
 
 function App() {
@@ -8,6 +8,9 @@ function App() {
   const [orders, setOrders] = useState(initialOrders);
   const [transactions, setTransactions] = useState(initialTransactions);
 
+  const [tradeAmount, setTradeAmount] = useState('');
+  const [tradePrice, setTradePrice] = useState('');
+  
   const [terminalOutput, setTerminalOutput] = useState([]);
 
   const commands = {
@@ -19,6 +22,23 @@ function App() {
     },
     price: () => {
         setTerminalOutput((prevOutput) => [price, ...prevOutput]);
+    },
+    buy: (amount, price) => {
+      const newOrder = { type: 'BUY', price: price, quantity: amount };
+      setOrders((prevOrders) => [...prevOrders, newOrder]);
+      const newTransaction = { type: 'BUY', amount: amount, timestamp: new Date().toLocaleTimeString() };
+      setTransactions((prevTransactions) => [...prevTransactions, newTransaction]);
+      setTerminalOutput((prevOutput) => [`Trade completed: BUY ${amount} at ${price}`, ...prevOutput]);
+    },
+    sell: (amount, price) => {
+      const newOrder = { type: 'SELL', price: price, quantity: amount };
+      setOrders((prevOrders) => [...prevOrders, newOrder]);
+      const newTransaction = { type: 'SELL', amount: amount, timestamp: new Date().toLocaleTimeString() };
+      setTransactions((prevTransactions) => [...prevTransactions, newTransaction]);
+      setTerminalOutput((prevOutput) => [`Trade completed: SELL ${amount} at ${price}`, ...prevOutput]);
+    },
+    invalid: (command) => {
+      setTerminalOutput((prevOutput) => [`Invalid command: ${command}`, ...prevOutput]);
     }
   };
 
@@ -28,9 +48,41 @@ function App() {
         if (commandHandler) {
           commandHandler();
         } else {
-          setTerminalOutput((prevOutput) => [`Invalid command: ${command}`, ...prevOutput]);
+          const parts = command.split(' ');
+          const subCommand = parts[0].toLowerCase();
+          const amount = parts[1];
+          const price = parts[2];
+
+          if (subCommand === 'buy' && amount && price) {
+            if (isNaN(amount) || isNaN(price)) {
+              commands.invalid(command)
+            } else {
+                commands.buy(amount, price);
+            }
+          } else if (subCommand === 'sell' && amount && price) {
+            if (isNaN(amount) || isNaN(price)) {
+                commands.invalid(command)
+            } else {
+                commands.sell(amount, price);
+            }
+          } else {
+            commands.invalid(command);
+          }
         }
   };
+
+  const handleTradeAmountChange = (event) => {
+    setTradeAmount(event.target.value);
+  };
+
+  const handleTradePriceChange = (event) => {
+    setTradePrice(event.target.value);
+  };
+
+  const handleTrade = () => {
+    setTradeAmount('');
+    setTradePrice('');
+  }
 
   return (
     <div className="terminal">
@@ -66,14 +118,14 @@ function App() {
           <div className="terminal-section trade-interface">
             <h3>Trade Interface</h3>
             <div className="trade-options">
-              <button>Buy</button>
-              <button>Sell</button>
+              <button onClick={() => handleCommand(`buy ${tradeAmount} ${tradePrice}`)}>Buy</button>
+              <button onClick={() => handleCommand(`sell ${tradeAmount} ${tradePrice}`)}>Sell</button>
             </div>
             <div className="trade-form">
-              <input type="text" placeholder="Amount" />
-              <input type="text" placeholder="Price" />
-              <button>Trade</button>
+              <input type="text" placeholder="Amount" value={tradeAmount} onChange={handleTradeAmountChange} />
+              <input type="text" placeholder="Price" value={tradePrice} onChange={handleTradePriceChange} />
             </div>
+            <button onClick={() => handleTrade()}>Trade</button>
           </div>
         </div>
         <CommandInput onCommand={handleCommand} />
