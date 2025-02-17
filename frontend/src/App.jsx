@@ -1,35 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import CommandInput from './CommandInput';
 
-function App() {  
+import { initialOrders, initialTransactions, price } from './data';
+
+function App() {
   // Sample data for the order book and transaction history
-  const [orders, setOrders] = useState([
-    { type: 'BUY', price: '100', quantity: '5' },
-    { type: 'SELL', price: '102', quantity: '3' },
-    { type: 'BUY', price: '99', quantity: '2' },
-    { type: 'SELL', price: '103', quantity: '7' },
-  ]);
+  const [orders, setOrders] = useState(initialOrders);
+  const [transactions, setTransactions] = useState(initialTransactions);
 
-  const [transactions, setTransactions] = useState([
-    { type: 'BUY', amount: '2', timestamp: '10:00' },
-    { type: 'SELL', amount: '1', timestamp: '10:01' },
-    { type: 'BUY', amount: '3', timestamp: '10:02' },
-  ]);
+  const [terminalOutput, setTerminalOutput] = useState([]);
 
-    const [terminalOutput, setTerminalOutput] = useState([]);
+  const commands = {
+    help: () => {
+      setTerminalOutput((prevOutput) => ['Available commands: help, clear, price', ...prevOutput]);
+    },
+    clear: () => {
+      setTerminalOutput([]);
+    },
+    price: () => {
+        setTerminalOutput((prevOutput) => [price, ...prevOutput]);
+    }
+  };
 
-    const handleCommand = (command) => {
-      setTerminalOutput((prevOutput) => [`PonderJaunt> ${command}`, ...prevOutput]);
-    
-      // Basic command handling for 'help' and 'clear'
-      if (command === 'help') {
-        setTerminalOutput((prevOutput) => ['Available commands: help, clear, price', ...prevOutput]);
-      } else if (command === 'clear') {
-        setTerminalOutput([]);
-      } else if (command === 'price') {
-        setTerminalOutput((prevOutput) => ['$101', ...prevOutput]);
-      } else {
-        setTerminalOutput((prevOutput) => ['Invalid command', ...prevOutput]);
-      }
+  const handleCommand = (command) => {
+    setTerminalOutput((prevOutput) => [`PonderJaunt> ${command}`, ...prevOutput]);
+        const commandHandler = commands[command];
+        if (commandHandler) {
+          commandHandler();
+        } else {
+          setTerminalOutput((prevOutput) => [`Invalid command: ${command}`, ...prevOutput]);
+        }
   };
 
   return (
@@ -77,35 +77,8 @@ function App() {
           </div>
         </div>
         <CommandInput onCommand={handleCommand} />
-      </div>
+    </div>
   );
-  function CommandInput({ onCommand }) {
-    const [command, setCommand] = useState('');
-  
-    const handleInputChange = (event) => {
-      setCommand(event.target.value);
-    };
-  
-    const handleKeyDown = (event) => {
-      if (event.key === 'Enter') {
-        onCommand(command);
-        setCommand('');
-      }
-    };
-  
-    return (
-      <div className='command-line'>
-        <span>&gt;&gt;</span>
-        <input
-          type="text"
-          className="command-input-field"
-          placeholder="Enter Command"
-          value={command}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-        />
-      </div>
-    );
 }
 
 export default App;
